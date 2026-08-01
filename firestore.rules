@@ -1,0 +1,184 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 1. Global Safety Net - Default Deny Catch-All
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 3. Primitive Helpers Definition
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Explicitly look up roles using get() on trusted database document
+    function isAdmin() {
+      return isSignedIn() && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // 2. Validation Blueprints (Anti-Update-Gap)
+    
+    function isValidUser(data) {
+      return data.id is string && data.id.size() <= 128 &&
+             data.name is string && data.name.size() <= 100 &&
+             data.email is string && data.email.size() <= 100 &&
+             (!('phone' in data) || (data.phone is string && data.phone.size() <= 30)) &&
+             (!('country' in data) || (data.country is string && data.country.size() <= 20)) &&
+             (!('language' in data) || (data.language is string && data.language.size() <= 10)) &&
+             (!('currency' in data) || (data.currency is string && data.currency.size() <= 10)) &&
+             data.role is string && (data.role == 'user' || data.role == 'admin') &&
+             data.balance is number && data.balance >= 0 &&
+             data.equity is number && data.equity >= 0 &&
+             (!('joined' in data) || (data.joined is string && data.joined.size() <= 20));
+    }
+
+    function isValidPosition(data) {
+      return data.id is string && data.id.size() <= 128 &&
+             data.userId is string && data.userId.size() <= 128 &&
+             data.symbol is string && data.symbol.size() <= 20 &&
+             (!('name' in data) || (data.name is string && data.name.size() <= 100)) &&
+             data.direction is string && (data.direction == 'Buy' || data.direction == 'Sell') &&
+             data.volume is number && data.volume > 0 && data.volume <= 1000 &&
+             data.openPrice is number && data.openPrice >= 0 &&
+             data.currentPrice is number && data.currentPrice >= 0 &&
+             data.pnl is number &&
+             data.status is string && (data.status == 'open' || data.status == 'closed') &&
+             data.time is string && data.time.size() <= 40 &&
+             (!('sl' in data) || data.sl is number) &&
+             (!('tp' in data) || data.tp is number);
+    }
+
+    function isValidTransaction(data) {
+      return data.id is string && data.id.size() <= 128 &&
+             data.userId is string && data.userId.size() <= 128 &&
+             data.type is string && (data.type == 'deposit' || data.type == 'withdrawal') &&
+             data.amount is number && data.amount > 0 &&
+             data.currency is string && data.currency.size() <= 10 &&
+             data.status is string && (data.status == 'pending' || data.status == 'approved' || data.status == 'rejected') &&
+             data.createdAt is string && data.createdAt.size() <= 40 &&
+             (!('method' in data) || (data.method is string && data.method.size() <= 50)) &&
+             (!('userName' in data) || (data.userName is string && data.userName.size() <= 100)) &&
+             (!('userEmail' in data) || (data.userEmail is string && data.userEmail.size() <= 100)) &&
+             (!('reason' in data) || (data.reason is string && data.reason.size() <= 200));
+    }
+
+    // 4. Fortress Rules for Collections
+
+    // Users Collection Rules
+    match /users/{userId} {
+      // Get Profile - allowed for owner or any logged-in administrator
+      allow get: if isSignedIn() && (isOwner(userId) || isAdmin());
+      
+      // List Profile - prohibited for general public, allowed for admin queries or single-owner filtered queries
+      allow list: if isSignedIn() && (isOwner(userId) || isAdmin());
+
+      // Create Profile - must be verified, matching their own UID, and they cannot self-assign 'admin' role
+      allow create: if isVerified() && isOwner(userId) && isValidUser(incoming()) && 
+                    incoming().role == 'user'; // Prevent self-elevating to admin during sign up
+
+      // Update Profile - tier structure and named action rules
+      allow update: if isVerified() && isValidUser(incoming()) && (
+        isAdmin() || (
+          isOwner(userId) && (
+            // Standard Profile Info Edit Action
+            (incoming().diff(existing()).affectedKeys().hasOnly(['phone', 'language', 'country', 'currency'])) ||
+            // Trading & Account balances action (used when positions are added/closed or deposits completed)
+            (incoming().diff(existing()).affectedKeys().hasOnly(['balance', 'equity']))
+          ) && 
+          // Role is immutable for standard users (cannot elevate themselves)
+          incoming().role == existing().role
+        )
+      );
+
+      // Delete Profile - only admin can delete profiles
+      allow delete: if isSignedIn() && isAdmin();
+
+      // Nested Positions Collection
+      match /positions/{positionId} {
+        allow get: if isSignedIn() && (isOwner(userId) || isAdmin());
+        allow list: if isSignedIn() && (isOwner(userId) || isAdmin());
+        
+        allow create: if isVerified() && isOwner(userId) && isValidId(positionId) && isValidPosition(incoming()) &&
+                      // Ensure parent user document exists
+                      exists(/databases/$(database)/documents/users/$(userId));
+
+        allow update: if isVerified() && (
+          isAdmin() || (
+            isOwner(userId) && isValidPosition(incoming()) && (
+              // Action: Mark to Market (update currentPrice and pnl)
+              (incoming().diff(existing()).affectedKeys().hasOnly(['currentPrice', 'pnl'])) ||
+              // Action: Update stops (sl, tp)
+              (incoming().diff(existing()).affectedKeys().hasOnly(['sl', 'tp'])) ||
+              // Action: Close position (status, currentPrice, pnl)
+              (incoming().diff(existing()).affectedKeys().hasOnly(['status', 'currentPrice', 'pnl']))
+            ) &&
+            // Immutable properties guard
+            incoming().id == existing().id &&
+            incoming().userId == existing().userId &&
+            incoming().symbol == existing().symbol &&
+            incoming().direction == existing().direction &&
+            incoming().volume == existing().volume &&
+            incoming().openPrice == existing().openPrice &&
+            incoming().time == existing().time
+          )
+        );
+
+        allow delete: if isSignedIn() && (isOwner(userId) || isAdmin());
+      }
+
+      // Nested Transactions Collection
+      match /transactions/{transactionId} {
+        allow get: if isSignedIn() && (isOwner(userId) || isAdmin());
+        allow list: if isSignedIn() && (isOwner(userId) || isAdmin());
+
+        allow create: if isVerified() && isOwner(userId) && isValidId(transactionId) && isValidTransaction(incoming()) &&
+                      // Ensure transaction is created as pending initially
+                      incoming().status == 'pending' &&
+                      // Ensure parent user document exists
+                      exists(/databases/$(database)/documents/users/$(userId));
+
+        allow update: if isVerified() && (
+          // Only Admin can transition transaction status
+          (isAdmin() && isValidTransaction(incoming()) && (
+            incoming().diff(existing()).affectedKeys().hasOnly(['status', 'reason'])
+          )) ||
+          // Owner can cancel/update transaction if it's still pending
+          (isOwner(userId) && existing().status == 'pending' && isValidTransaction(incoming()) && (
+            incoming().diff(existing()).affectedKeys().hasOnly(['amount', 'currency', 'method', 'status']) &&
+            // If they modify status, it can only transition to 'rejected' (i.e. user cancelled)
+            (incoming().status == 'rejected' || incoming().status == 'pending')
+          ) &&
+          incoming().id == existing().id &&
+          incoming().userId == existing().userId &&
+          incoming().type == existing().type &&
+          incoming().createdAt == existing().createdAt)
+        );
+
+        allow delete: if isSignedIn() && isAdmin();
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Axi | Trade Your Edge",
+  "description": "Trade your edge with Axi, a world-leading and multi-award winning broker offering FX, Indices, Commodities, Shares, and Cryptos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 47 100% 50%; /* #FFC800 (Axi Yellow) consistently used across primary elements */
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 47 100% 50%; /* Focus Indicator Ring matched to Axi Yellow */
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * { 
+    @apply border-border; 
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  }
+  body { 
+    @apply bg-background text-foreground; 
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  }
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+/* === Backup Styles === */
+
+@layer base {
+  :root {
+    --color-primary-red: #D31C2B;
+    --color-primary-red-dark: #B51421;
+    --color-cream: #FAF8F5;
+    --color-cream-light: #F4F0EA;
+    --color-gold: #C5A059;
+    --color-gold-hover: #B08C4A;
+    --color-beige: #EDE8E0;
+    --color-dark: #1A1A1A;
+    --color-dark-charcoal: #2D2D2D;
+    --color-text-primary: #1A1A1A;
+    --color-text-secondary: #6B6560;
+    --color-text-muted: #9B9590;
+    --color-accent-yellow: #FFC800;
+    --color-accent-yellow-hover: #E5B400;
+    --color-success: #22A958;
+    --color-danger: #EF4444;
+    --color-border: #D9D3CB;
+    --color-border-dark: rgba(255,255,255,0.15);
+
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+    --primary: 47 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 30 18% 90%;
+    --secondary-foreground: 0 0% 10%;
+    --muted: 30 18% 90%;
+    --muted-foreground: 25 6% 40%;
+    --accent: 47 100% 50%;
+    --accent-foreground: 0 0% 5%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 30 14% 82%;
+    --input: 30 14% 82%;
+    --ring: 47 100% 50%;
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--color-text-primary);
+    background-color: var(--color-cream);
+    line-height: 1.5;
+    letter-spacing: -0.011em;
+    overflow-x: hidden;
+  }
+
+  /* Page Headers: Clean, Medium/SemiBold Space Grotesk with Tight Letter Spacing as per Axi.com Design System */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    font-weight: 600; /* Sophisticated semibold brand look */
+    letter-spacing: -0.03em; /* tight, stylized tracking */
+    line-height: 1.2;
+  }
+
+  h1 {
+    font-weight: 500; /* Main page titles use clean medium weight as per Axi.com design system */
+    letter-spacing: -0.04em; /* even tighter display tracking for large headings */
+  }
+
+  /* Global Focus Indicator styling matched to primary Axi Red (#D31C2B) */
+  *:focus {
+    outline: none;
+  }
+
+  *:focus-visible,
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid #FFC800 !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 4px rgba(255, 200, 0, 0.15) !important;
+    transition: outline-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  /* Active Link & Button Press States */
+  a:active,
+  button:active,
+  .active-link-state:active {
+    color: #E0B73A !important;
+  }
+}
+
+@layer components {
+  .container-axi {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .label-uppercase {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .btn-yellow {
+    background-color: var(--color-accent-yellow);
+    color: #000;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 12px 28px;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-yellow:hover {
+    background-color: var(--color-accent-yellow-hover);
+  }
+
+  .btn-yellow-pill {
+    background-color: transparent;
+    color: var(--color-accent-yellow);
+    border: 2px solid var(--color-accent-yellow);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 10px 28px;
+    border-radius: 9999px;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .btn-yellow-pill:hover {
+    background-color: var(--color-accent-yellow);
+    color: #000;
+  }
+
+  .btn-yellow-pill-filled {
+    background-color: var(--color-accent-yellow);
+    color: #000;
+    border: 2px solid var(--color-accent-yellow);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 10px 28px;
+    border-radius: 9999px;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .btn-yellow-pill-filled:hover {
+    background-color: var(--color-accent-yellow-hover);
+    border-color: var(--color-accent-yellow-hover);
+  }
+
+  .section-padding {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  .section-padding-lg {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .font-mono-axi {
+    font-family: 'Inter', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Custom styles for Trader Dashboard Layout and Order Placement Panel */
+.trader-dashboard-layout {
+  /* Controlled dynamically by utility classes: grid grid-cols-1 lg:grid-cols-12 gap-6 */
+}
+
+@media (min-width: 768px) {
+  .order-placement-panel {
+    min-width: 300px !important;
+  }
+}

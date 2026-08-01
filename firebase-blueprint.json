@@ -1,0 +1,188 @@
+{
+  "entities": {
+    "users": {
+      "title": "User Profile",
+      "description": "User profile with balance, equity, and metadata",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The Firebase Auth UID of the user"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the user"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address of the user"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number"
+        },
+        "country": {
+          "type": "string",
+          "description": "Country of residence"
+        },
+        "language": {
+          "type": "string",
+          "description": "Preferred interface language"
+        },
+        "currency": {
+          "type": "string",
+          "description": "Preferred settlement currency"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["user", "admin"],
+          "description": "Security access role"
+        },
+        "balance": {
+          "type": "number",
+          "description": "Available cash balance"
+        },
+        "equity": {
+          "type": "number",
+          "description": "Net equity including unrealized P&L"
+        },
+        "joined": {
+          "type": "string",
+          "description": "Date joined in YYYY-MM-DD"
+        }
+      },
+      "required": ["id", "name", "email", "role", "balance", "equity"]
+    },
+    "positions": {
+      "title": "Trading Position",
+      "description": "An open or closed trading position",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique position ID"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Owner user UID"
+        },
+        "symbol": {
+          "type": "string",
+          "description": "Trading instrument symbol (e.g. EURUSD)"
+        },
+        "name": {
+          "type": "string",
+          "description": "Trading instrument human-readable name"
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["Buy", "Sell"],
+          "description": "Position side"
+        },
+        "volume": {
+          "type": "number",
+          "description": "Position lot volume size"
+        },
+        "openPrice": {
+          "type": "number",
+          "description": "Price at which the position was opened"
+        },
+        "currentPrice": {
+          "type": "number",
+          "description": "Latest mark-to-market market price"
+        },
+        "sl": {
+          "type": "number",
+          "description": "Stop loss price target"
+        },
+        "tp": {
+          "type": "number",
+          "description": "Take profit price target"
+        },
+        "pnl": {
+          "type": "number",
+          "description": "Unrealized P&L"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["open", "closed"],
+          "description": "Active state"
+        },
+        "time": {
+          "type": "string",
+          "description": "Time the trade was initiated"
+        }
+      },
+      "required": ["id", "userId", "symbol", "direction", "volume", "openPrice", "currentPrice", "pnl", "status", "time"]
+    },
+    "transactions": {
+      "title": "Transaction Log",
+      "description": "A deposit or withdrawal record",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique transaction ID"
+        },
+        "userId": {
+          "type": "string",
+          "description": "User UID"
+        },
+        "userName": {
+          "type": "string",
+          "description": "User full name"
+        },
+        "userEmail": {
+          "type": "string",
+          "description": "User email address"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["deposit", "withdrawal"],
+          "description": "Type of financial transfer"
+        },
+        "amount": {
+          "type": "number",
+          "description": "Transaction amount size"
+        },
+        "currency": {
+          "type": "string",
+          "description": "ISO currency code"
+        },
+        "method": {
+          "type": "string",
+          "description": "Transfer method (e.g., Credit Card, Wire)"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "approved", "rejected"],
+          "description": "Approval status"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Rejection or audit reason if applicable"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Date and time of transaction creation"
+        }
+      },
+      "required": ["id", "userId", "type", "amount", "currency", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/users" },
+      "description": "Allows individual users to read and write their profiles"
+    },
+    "/users/{userId}/positions/{positionId}": {
+      "schema": { "$ref": "#/entities/positions" },
+      "description": "Allows users to log and manage their active/closed positions"
+    },
+    "/users/{userId}/transactions/{transactionId}": {
+      "schema": { "$ref": "#/entities/transactions" },
+      "description": "Allows users to log and manage deposit or withdrawal requests"
+    }
+  }
+}
