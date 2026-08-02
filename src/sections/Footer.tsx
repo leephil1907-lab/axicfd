@@ -52,7 +52,7 @@ export default function Footer() {
             </div>
             <div>
               <p className="text-white uppercase font-black text-[10px] tracking-wider text-gray-500">Support Hours</p>
-              <Link to="/contact" className="text-gray-300 hover:text-white mt-0.5 block transition-colors">24/5 Customer Support Live</Link>
+              <Link to="/contact" className="text-gray-300 hover:text-white mt-0.5 block transition-colors">24/7 Customer Support Live</Link>
             </div>
           </div>
 
@@ -61,8 +61,18 @@ export default function Footer() {
               <Mail className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-white uppercase font-black text-[10px] tracking-wider text-gray-500">Email Support</p>
-              <Link to="/contact" className="text-gray-300 hover:text-white mt-0.5 block transition-colors">support@axi.com</Link>
+              <p className="text-white uppercase font-black text-[10px] tracking-wider text-gray-500">Contact Email</p>
+              <a href="mailto:axicustomersupport@gmail.com" className="text-gray-300 hover:text-white mt-0.5 block transition-colors">axicustomersupport@gmail.com</a>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-gray-800/60 flex items-center justify-center text-[#D31C2B]">
+              <Mail className="w-4 h-4" />
+            </div>
+            <div>
+              <p className="text-white uppercase font-black text-[10px] tracking-wider text-gray-500">Enquiry Email</p>
+              <a href="mailto:customersupport@axitrades.com" className="text-gray-300 hover:text-white mt-0.5 block transition-colors">customersupport@axitrades.com</a>
             </div>
           </div>
 
@@ -71,18 +81,8 @@ export default function Footer() {
               <Phone className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-white uppercase font-black text-[10px] tracking-wider text-gray-500">Global Hotline</p>
-              <Link to="/contact" className="text-gray-300 hover:text-white mt-0.5 block transition-colors">+44 20 3322 1234</Link>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-gray-800/60 flex items-center justify-center text-[#D31C2B]">
-              <ShieldCheck className="w-4 h-4" />
-            </div>
-            <div>
-              <p className="text-white uppercase font-black text-[10px] tracking-wider text-gray-500">Regulatory Trust</p>
-              <Link to="/regulatory-information" className="text-gray-300 hover:text-white mt-0.5 block transition-colors">FCA Registered & Regulated</Link>
+              <p className="text-white uppercase font-black text-[10px] tracking-wider text-gray-500">WhatsApp Support</p>
+              <a href="https://wa.me/18649358993" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white mt-0.5 block transition-colors">+18649358993</a>
             </div>
           </div>
         </div>

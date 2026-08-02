@@ -44,9 +44,29 @@ export default function ContactPage() {
                     <Mail className="w-5 h-5 text-[#D31C2B]" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">Email</div>
-                    <div className="text-sm text-gray-600">support@axi-trading.com</div>
-                    <div className="text-xs text-gray-500">Response within 24 hours</div>
+                    <div className="font-semibold text-gray-900">Contact Email</div>
+                    <a href="mailto:axicustomersupport@gmail.com" className="text-sm text-gray-600 hover:text-[#D31C2B] font-medium">axicustomersupport@gmail.com</a>
+                    <div className="text-xs text-gray-500">24/7 Client Support Response</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-5 h-5 text-[#D31C2B]" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900">Enquiry Email</div>
+                    <a href="mailto:customersupport@axitrades.com" className="text-sm text-gray-600 hover:text-[#D31C2B] font-medium">customersupport@axitrades.com</a>
+                    <div className="text-xs text-gray-500">Official General Enquiries</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-5 h-5 text-[#D31C2B]" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900">WhatsApp Support</div>
+                    <a href="https://wa.me/18649358993" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-600 hover:text-[#D31C2B] font-medium">+18649358993</a>
+                    <div className="text-xs text-gray-500">Instant Messaging Desk</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">

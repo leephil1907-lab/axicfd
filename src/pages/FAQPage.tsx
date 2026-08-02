@@ -106,7 +106,7 @@ export default function FAQPage() {
           <h3 className="text-xl font-bold mb-2">Still have questions?</h3>
           <p className="text-white/80 mb-6">Our support team is available 24/7</p>
           <div className="flex justify-center gap-4">
-            <a href="mailto:support@axi-trading.com" className="bg-white text-[#D31C2B] px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center gap-2">
+            <a href="mailto:customersupport@axitrades.com" className="bg-white text-[#D31C2B] px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center gap-2">
               <Mail className="w-4 h-4" /> Email Support
             </a>
             <a href="tel:+18008888888" className="bg-white/20 border-2 border-white text-white px-6 py-2 rounded-lg font-semibold hover:bg-white/30 transition-colors inline-flex items-center gap-2">

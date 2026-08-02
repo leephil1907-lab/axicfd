@@ -110,7 +110,7 @@ export default function HelpCenter() {
               <Mail className="w-8 h-8 text-[#D31C2B]" />
               <div>
                 <div className="font-semibold text-sm">Email</div>
-                <div className="text-xs text-gray-500">support@axi-trading.com</div>
+                <div className="text-xs text-gray-500">customersupport@axitrades.com</div>
               </div>
             </div>
             <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">

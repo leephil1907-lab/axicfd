@@ -1,9 +1,9 @@
 // SEO Utilities for AXI Trading Platform
 
 export const siteConfig = {
-  name: 'AXI Trading',
-  url: 'https://axi-trading.com',
-  ogImage: 'https://axi-trading.com/og-image.jpg',
+  name: 'AXI TRADES',
+  url: 'https://www.axitrades.com',
+  ogImage: 'https://www.axitrades.com/og-image.jpg',
   description: 'Trade Forex, Crypto, Commodities & Indices with tight spreads, fast execution, and award-winning platforms.',
   keywords: 'forex trading, crypto trading, CFD trading, MT4, MT5, online trading, financial markets',
   twitter: '@axi_trading',
