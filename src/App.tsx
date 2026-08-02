@@ -1,72 +1,92 @@
 import { Routes, Route, useLocation } from "react-router";
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, ComponentType } from "react";
 import { I18nProvider } from "./hooks/useI18n";
 import Navbar from "./sections/Navbar";
 import Footer from "./sections/Footer";
 import TopBar from "./sections/TopBar";
 import LiveChat from "./components/LiveChat";
+import ErrorBoundary from "./components/ErrorBoundary";
 import { Toaster } from "sonner";
+import HomePage from "./pages/HomePage";
 
-// ── Lazy load pages ───────────────────────────────────────
-const MT4TradingPage = lazy(() => import("./pages/MT4TradingPage"));
-const MT5TradingPage = lazy(() => import("./pages/MT5TradingPage"));
-const AxiSelectPage = lazy(() => import("./pages/AxiSelectPage"));
-const TradingSessionsPage = lazy(() => import("./pages/TradingSessionsPage"));
-const FAQPage = lazy(() => import("./pages/FAQPage"));
-const ContactPage = lazy(() => import("./pages/ContactPage"));
-const BlogPage = lazy(() => import("./pages/BlogPage"));
-const BlogPost = lazy(() => import("./pages/BlogPost"));
-const TermsOfService = lazy(() => import("./pages/TermsOfService"));
-const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
-const RiskDisclosure = lazy(() => import("./pages/RiskDisclosure"));
-const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
-const GDPRCompliance = lazy(() => import("./pages/GDPRCompliance"));
-const AMLPolicy = lazy(() => import("./pages/AMLPolicy"));
-const KYCPolicy = lazy(() => import("./pages/KYCPolicy"));
-const RefundPolicy = lazy(() => import("./pages/RefundPolicy"));
-const Disclaimer = lazy(() => import("./pages/Disclaimer"));
-const ComplaintsProcedure = lazy(() => import("./pages/ComplaintsProcedure"));
-const ConflictsOfInterest = lazy(() => import("./pages/ConflictsOfInterest"));
-const BestExecutionPolicy = lazy(() => import("./pages/BestExecutionPolicy"));
-const LeveragePolicy = lazy(() => import("./pages/LeveragePolicy"));
-const NegativeBalanceProtection = lazy(() => import("./pages/NegativeBalanceProtection"));
-const InvestorCompensation = lazy(() => import("./pages/InvestorCompensation"));
-const RegulatoryInformation = lazy(() => import("./pages/RegulatoryInformation"));
-const Licenses = lazy(() => import("./pages/Licenses"));
-const FeesSchedule = lazy(() => import("./pages/FeesSchedule"));
-const TradingHours = lazy(() => import("./pages/TradingHours"));
-const Accessibility = lazy(() => import("./pages/Accessibility"));
+// ── Lazy load pages with auto-retry on dynamic chunk fetch errors ───────
+const lazyRetry = <T extends ComponentType<any>>(
+  factory: () => Promise<{ default: T }>
+) =>
+  lazy(async () => {
+    try {
+      const component = await factory();
+      sessionStorage.removeItem("retry-lazy-refreshed");
+      return component;
+    } catch (error) {
+      const storageKey = "retry-lazy-refreshed";
+      const hasRefreshed = sessionStorage.getItem(storageKey);
+      if (!hasRefreshed) {
+        sessionStorage.setItem(storageKey, "true");
+        window.location.reload();
+      }
+      throw error;
+    }
+  });
 
-const HomePage = lazy(() => import("./pages/HomePage"));
-const GoogleFormsPage = lazy(() => import("./pages/GoogleFormsPage"));
-const RegisterPage = lazy(() => import("./pages/RegisterPage"));
-const TradingDashboard = lazy(() => import("./pages/TradingDashboard"));
-const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
-const FundsPage = lazy(() => import("./pages/FundsPage"));
-const DepositWithdrawPage = lazy(() => import("./pages/DepositsWithdrawals"));
-const UserDepositPage = lazy(() => import("./pages/UserDepositPage"));
-const UserWithdrawalPage = lazy(() => import("./pages/UserWithdrawalPage"));
-const SettingsPage = lazy(() => import("./pages/SettingsPage"));
-const MarketsPage = lazy(() => import("./pages/MarketsPage"));
-const ForexPage = lazy(() => import("./pages/ForexPage"));
-const CryptoPage = lazy(() => import("./pages/CryptoPage"));
-const CommoditiesPage = lazy(() => import("./pages/CommoditiesPage"));
-const IndicesPage = lazy(() => import("./pages/IndicesPage"));
-const SharesPage = lazy(() => import("./pages/SharesPage"));
-const TradingToolsPage = lazy(() => import("./pages/TradingToolsPage"));
-const PlatformsPage = lazy(() => import("./pages/PlatformsPage"));
-const LearnToTradePage = lazy(() => import("./pages/LearnToTradePage"));
-const PartnershipsPage = lazy(() => import("./pages/PartnershipsPage"));
-const ManCityPage = lazy(() => import("./pages/ManCityPage"));
-const CompanyPage = lazy(() => import("./pages/CompanyPage"));
-const HelpCenterPage = lazy(() => import("./pages/HelpCenterPage"));
-const OpenAccountPage = lazy(() => import("./pages/OpenAccountPage"));
-const Home = lazy(() => import("./pages/Home"));
-const Login = lazy(() => import("./pages/Login"));
-const SignUp = lazy(() => import("./pages/SignUp"));
-const NotFound = lazy(() => import("./pages/NotFound"));
-const SimulatedStripePage = lazy(() => import("./pages/SimulatedStripePage"));
-const SimulatedNowpaymentsPage = lazy(() => import("./pages/SimulatedNowpaymentsPage"));
+const MT4TradingPage = lazyRetry(() => import("./pages/MT4TradingPage"));
+const MT5TradingPage = lazyRetry(() => import("./pages/MT5TradingPage"));
+const AxiSelectPage = lazyRetry(() => import("./pages/AxiSelectPage"));
+const TradingSessionsPage = lazyRetry(() => import("./pages/TradingSessionsPage"));
+const FAQPage = lazyRetry(() => import("./pages/FAQPage"));
+const ContactPage = lazyRetry(() => import("./pages/ContactPage"));
+const BlogPage = lazyRetry(() => import("./pages/BlogPage"));
+const BlogPost = lazyRetry(() => import("./pages/BlogPost"));
+const TermsOfService = lazyRetry(() => import("./pages/TermsOfService"));
+const PrivacyPolicy = lazyRetry(() => import("./pages/PrivacyPolicy"));
+const RiskDisclosure = lazyRetry(() => import("./pages/RiskDisclosure"));
+const CookiePolicy = lazyRetry(() => import("./pages/CookiePolicy"));
+const GDPRCompliance = lazyRetry(() => import("./pages/GDPRCompliance"));
+const AMLPolicy = lazyRetry(() => import("./pages/AMLPolicy"));
+const KYCPolicy = lazyRetry(() => import("./pages/KYCPolicy"));
+const RefundPolicy = lazyRetry(() => import("./pages/RefundPolicy"));
+const Disclaimer = lazyRetry(() => import("./pages/Disclaimer"));
+const ComplaintsProcedure = lazyRetry(() => import("./pages/ComplaintsProcedure"));
+const ConflictsOfInterest = lazyRetry(() => import("./pages/ConflictsOfInterest"));
+const BestExecutionPolicy = lazyRetry(() => import("./pages/BestExecutionPolicy"));
+const LeveragePolicy = lazyRetry(() => import("./pages/LeveragePolicy"));
+const NegativeBalanceProtection = lazyRetry(() => import("./pages/NegativeBalanceProtection"));
+const InvestorCompensation = lazyRetry(() => import("./pages/InvestorCompensation"));
+const RegulatoryInformation = lazyRetry(() => import("./pages/RegulatoryInformation"));
+const Licenses = lazyRetry(() => import("./pages/Licenses"));
+const FeesSchedule = lazyRetry(() => import("./pages/FeesSchedule"));
+const TradingHours = lazyRetry(() => import("./pages/TradingHours"));
+const Accessibility = lazyRetry(() => import("./pages/Accessibility"));
+
+const GoogleFormsPage = lazyRetry(() => import("./pages/GoogleFormsPage"));
+const RegisterPage = lazyRetry(() => import("./pages/RegisterPage"));
+const TradingDashboard = lazyRetry(() => import("./pages/TradingDashboard"));
+const AdminDashboard = lazyRetry(() => import("./pages/AdminDashboard"));
+const FundsPage = lazyRetry(() => import("./pages/FundsPage"));
+const DepositWithdrawPage = lazyRetry(() => import("./pages/DepositsWithdrawals"));
+const UserDepositPage = lazyRetry(() => import("./pages/UserDepositPage"));
+const UserWithdrawalPage = lazyRetry(() => import("./pages/UserWithdrawalPage"));
+const SettingsPage = lazyRetry(() => import("./pages/SettingsPage"));
+const MarketsPage = lazyRetry(() => import("./pages/MarketsPage"));
+const ForexPage = lazyRetry(() => import("./pages/ForexPage"));
+const CryptoPage = lazyRetry(() => import("./pages/CryptoPage"));
+const CommoditiesPage = lazyRetry(() => import("./pages/CommoditiesPage"));
+const IndicesPage = lazyRetry(() => import("./pages/IndicesPage"));
+const SharesPage = lazyRetry(() => import("./pages/SharesPage"));
+const TradingToolsPage = lazyRetry(() => import("./pages/TradingToolsPage"));
+const PlatformsPage = lazyRetry(() => import("./pages/PlatformsPage"));
+const LearnToTradePage = lazyRetry(() => import("./pages/LearnToTradePage"));
+const PartnershipsPage = lazyRetry(() => import("./pages/PartnershipsPage"));
+const ManCityPage = lazyRetry(() => import("./pages/ManCityPage"));
+const CompanyPage = lazyRetry(() => import("./pages/CompanyPage"));
+const HelpCenterPage = lazyRetry(() => import("./pages/HelpCenterPage"));
+const OpenAccountPage = lazyRetry(() => import("./pages/OpenAccountPage"));
+const Home = lazyRetry(() => import("./pages/Home"));
+const Login = lazyRetry(() => import("./pages/Login"));
+const SignUp = lazyRetry(() => import("./pages/SignUp"));
+const NotFound = lazyRetry(() => import("./pages/NotFound"));
+const SimulatedStripePage = lazyRetry(() => import("./pages/SimulatedStripePage"));
+const SimulatedNowpaymentsPage = lazyRetry(() => import("./pages/SimulatedNowpaymentsPage"));
 
 function App() {
   const location = useLocation();
@@ -95,10 +115,11 @@ function App() {
 
   return (
     <I18nProvider>
-      {showGlobalLayout && <Navbar />}
-      <div className={showGlobalLayout ? "pt-[60px] md:pt-[64px]" : ""}>
-        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#FAF8F5]"><div className="animate-spin w-8 h-8 border-2 border-[#FFC800] border-t-transparent rounded-full" /></div>}>
-          <Routes>
+      <ErrorBoundary>
+        {showGlobalLayout && <Navbar />}
+        <div className={showGlobalLayout ? "pt-[60px] md:pt-[64px]" : ""}>
+          <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#FAF8F5]"><div className="animate-spin w-8 h-8 border-2 border-[#FFC800] border-t-transparent rounded-full" /></div>}>
+            <Routes>
                                 {/* MT4/MT5 Trading Pages */}
                 <Route path="/platforms/mt4" element={<MT4TradingPage />} />
                 <Route path="/platforms/mt5" element={<MT5TradingPage />} />
@@ -188,9 +209,10 @@ function App() {
             </Suspense>
           </div>
           {showGlobalLayout && <Footer />}
-            <LiveChat />
-            <Toaster position="top-right" richColors />
-        </I18nProvider>
+          <LiveChat />
+          <Toaster position="top-right" richColors />
+      </ErrorBoundary>
+    </I18nProvider>
   );
 }
 
