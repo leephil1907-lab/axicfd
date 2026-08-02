@@ -115,7 +115,7 @@ export default function LearnToTradePage() {
               </p>
             </motion.div>
             <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} className="flex justify-center">
-              <img src="/education-illustration.png" alt="Education" className="max-w-full rounded-lg" style={{ maxHeight: "350px" }} />
+              <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=800&auto=format&fit=crop" alt="Education" className="max-w-full rounded-lg" style={{ maxHeight: "350px" }} />
             </motion.div>
           </div>
         </div>

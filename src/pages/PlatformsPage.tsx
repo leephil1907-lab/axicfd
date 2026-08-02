@@ -78,7 +78,7 @@ export default function PlatformsPage() {
               </div>
               <div className="w-full md:w-1/2 flex justify-center">
                 <img
-                  src={idx === 0 ? "/platform-illustration.png" : idx === 1 ? "/hero-trader.jpg" : "/education-illustration.png"}
+                  src={idx === 0 ? "https://images.unsplash.com/photo-1642543492481-44e81e3914a7?q=80&w=800&auto=format&fit=crop" : idx === 1 ? "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=800&auto=format&fit=crop" : "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=800&auto=format&fit=crop"}
                   alt={platform.name}
                   className="max-w-full rounded-lg shadow-lg"
                   style={{ maxHeight: "320px", objectFit: "cover" }}

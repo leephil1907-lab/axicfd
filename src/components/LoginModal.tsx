@@ -154,7 +154,7 @@ export default function LoginModal({ isOpen, onClose, onSignUp }: LoginModalProp
                   className="w-full py-4 rounded-lg border flex items-center justify-center gap-3 hover:border-[#D31C2B] transition-colors"
                   style={{ borderColor: "#D9D3CB" }}
                 >
-                  <img src="/mt4-icon.png" alt="MT4" className="w-6 h-6" />
+                  <img src="https://d2tpnh780x5es.cloudfront.net/rebrand-prod/fmulswz2/mt4-awards.png" alt="MT4" className="w-6 h-6 object-contain" />
                   <span className="text-sm font-medium" style={{ color: "#1A1A1A" }}>Login with MT4</span>
                   <span style={{ color: "#D31C2B" }}>&rarr;</span>
                 </button>

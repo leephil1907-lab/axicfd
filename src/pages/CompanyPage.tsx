@@ -75,7 +75,7 @@ export default function CompanyPage() {
               </p>
             </motion.div>
             <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} className="flex justify-center">
-              <img src="/axi-select-person.jpg" alt="Axi Team" className="max-w-full rounded-lg shadow-lg" style={{ maxHeight: "350px", objectFit: "cover" }} />
+              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop" alt="Axi Team" className="max-w-full rounded-lg shadow-lg" style={{ maxHeight: "350px", objectFit: "cover" }} />
             </motion.div>
           </div>
 

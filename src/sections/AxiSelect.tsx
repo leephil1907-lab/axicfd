@@ -34,7 +34,7 @@ export default function AxiSelect() {
           className="w-full md:w-1/2 flex justify-center md:justify-end"
         >
           <img
-            src="/axi-select-person.jpg"
+            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop"
             alt="Axi Select Trader"
             className="max-w-full md:max-h-[350px] h-auto object-cover rounded-lg"
           />
