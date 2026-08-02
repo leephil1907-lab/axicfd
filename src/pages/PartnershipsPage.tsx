@@ -621,7 +621,7 @@ export default function PartnershipsPage() {
                     className="flex-1 bg-gray-900 border border-gray-800 rounded-lg text-[11px] font-mono p-2 text-gray-400 focus:outline-none"
                   />
                   <button 
-                    onClick={() => alert("Copied partner link to clipboard! (Client Sandbox)")}
+                    onClick={() => alert("Copied partner link to clipboard!")}
                     className="bg-[#D31C2B] text-xs font-bold px-3 rounded-lg hover:bg-[#B91623]"
                   >
                     Copy

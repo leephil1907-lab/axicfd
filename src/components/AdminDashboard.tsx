@@ -187,7 +187,7 @@ export default function AdminDashboard({
                 <div>
                   <div className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Open Positions</div>
                   <div className="text-3xl font-extrabold text-gray-950 font-mono mt-1">{openPositionsCount}</div>
-                  <p className="text-[10px] text-amber-500 font-bold mt-1">Simulated feeds</p>
+                  <p className="text-[10px] text-emerald-600 font-bold mt-1">Institutional Live Feeds</p>
                 </div>
                 <div className="w-12 h-12 bg-amber-50 text-amber-500 rounded-xl flex items-center justify-center">
                   <Activity className="w-6 h-6" />

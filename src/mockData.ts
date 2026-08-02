@@ -279,7 +279,7 @@ export const HELP_TOPICS = [
   {
     icon: '🔐',
     title: 'Trading Accounts',
-    description: "Whether you're using a live or simulated Axi account, our FAQs guide you through account types and setups."
+    description: "Whether you're using a live or demo Axi account, our FAQs guide you through account types and setups."
   },
   {
     icon: '👤',

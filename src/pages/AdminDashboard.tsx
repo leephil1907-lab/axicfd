@@ -882,7 +882,7 @@ export default function AdminDashboard() {
                   <div className="space-y-1 mb-4">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Development Endpoint URL</span>
-                      <span className="text-[10px] bg-amber-50 text-amber-700 font-bold px-2 py-0.5 rounded border border-amber-200">Sandbox / Local Testing</span>
+                      <span className="text-[10px] bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded border border-blue-200">Dev Environment</span>
                     </div>
                     <div className="flex items-center gap-2 bg-gray-50 p-2.5 rounded-lg border border-gray-200">
                       <code className="text-xs font-mono text-gray-700 break-all flex-1">{stripeDevWebhook}</code>
@@ -949,7 +949,7 @@ export default function AdminDashboard() {
                   <div className="space-y-1 mb-4">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Development IPN URL</span>
-                      <span className="text-[10px] bg-amber-50 text-amber-700 font-bold px-2 py-0.5 rounded border border-amber-200">Sandbox / Local Testing</span>
+                      <span className="text-[10px] bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded border border-blue-200">Dev Environment</span>
                     </div>
                     <div className="flex items-center gap-2 bg-gray-50 p-2.5 rounded-lg border border-gray-200">
                       <code className="text-xs font-mono text-gray-700 break-all flex-1">{nowPaymentsDevWebhook}</code>

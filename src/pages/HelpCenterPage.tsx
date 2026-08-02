@@ -5,7 +5,7 @@ import { useState } from "react";
 const helpCards = [
   { icon: HelpCircle, title: "About Axi", desc: "Find essential details about Axi, including customer support hours, regulation and company information." },
   { icon: BookOpen, title: "Getting Started", desc: "Everything you need to begin your trading journey - from opening an account to making your first trade." },
-  { icon: CreditCard, title: "Trading Accounts", desc: "Whether you're using a live or simulated Axi account, our FAQs guide you through account management." },
+  { icon: CreditCard, title: "Trading Accounts", desc: "Whether you're using a live or demo Axi account, our FAQs guide you through account management." },
   { icon: User, title: "My Axi Account", desc: "Find FAQs covering everything related to your account, including documents and verification." },
   { icon: CreditCard, title: "Deposits and Withdrawals", desc: "Everything you should know about Deposits and Withdrawals including processing times and methods." },
   { icon: FileText, title: "Trading Platforms", desc: "Learn how to download, install and use MT4 and MT5 on desktop, web and mobile devices." },

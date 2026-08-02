@@ -161,7 +161,7 @@ export default function MT4TradingPage() {
               className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors"
             >
               <div>
-                <h3 className="text-xl font-bold text-gray-900">Simulated vs Live Account Comparison</h3>
+                <h3 className="text-xl font-bold text-gray-900">Demo vs Live Account Comparison</h3>
                 <p className="text-sm text-gray-500 mt-1">See the differences before you start</p>
               </div>
               {showComparison ? <ChevronUp className="w-5 h-5 text-gray-400" /> : <ChevronDown className="w-5 h-5 text-gray-400" />}
@@ -173,7 +173,7 @@ export default function MT4TradingPage() {
                   <thead>
                     <tr className="border-b border-gray-200">
                       <th className="text-left py-3 text-gray-500">Feature</th>
-                      <th className="text-center py-3 text-gray-900 font-semibold bg-blue-50">Simulated Sandbox</th>
+                      <th className="text-center py-3 text-gray-900 font-semibold bg-blue-50">Demo Account</th>
                       <th className="text-center py-3 text-gray-900 font-semibold bg-green-50">Live Trading Account</th>
                     </tr>
                   </thead>

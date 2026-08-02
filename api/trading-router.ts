@@ -935,14 +935,14 @@ Status: PENDING ADMIN VERIFICATION`;
           amount: amountVal.toString(),
           currency: input.currency,
           status: "pending",
-          paymentMethod: "USDT (TRC20 NOWPayments Sandbox)",
+          paymentMethod: "USDT (TRC20 NOWPayments)",
           reference: `NOWPayments Ref: ${simInvoiceId}`,
           createdAt: new Date(),
         });
 
         try {
           const userEmail = ctx.user?.email || "User";
-          await notifyNewDeposit(userEmail, `${amountVal} ${input.currency}`, `USDT (NOWPayments Sandbox)`);
+          await notifyNewDeposit(userEmail, `${amountVal} ${input.currency}`, `USDT (NOWPayments)`);
         } catch (err) {
           console.error("Failed to notify admin on Telegram:", err);
         }

@@ -28,7 +28,7 @@ const faqs = [
   { category: 'security', question: 'What security measures exist?', answer: '256-bit SSL encryption, 2FA, regular security audits, and GDPR compliance.' },
   { category: 'platform', question: 'What platforms are available?', answer: 'MetaTrader 4, MetaTrader 5, and WebTrader. Mobile apps for iOS and Android.' },
   { category: 'platform', question: 'Can I use Expert Advisors?', answer: 'Yes, both MT4 and MT5 support EAs and automated trading strategies.' },
-  { category: 'platform', question: 'Can I practice trading safely?', answer: 'Absolutely. Registered users can access our interactive real-time price charts and use simulated trading capabilities directly in their client portal to analyze and experiment with market movements.' },
+  { category: 'platform', question: 'Can I practice trading safely?', answer: 'Absolutely. Registered users can access our interactive real-time price charts and use demo account trading capabilities directly in their client portal to analyze and experiment with market movements.' },
   { category: 'funds', question: 'Are there deposit fees?', answer: 'No deposit fees. Your payment provider may charge fees.' },
 ];
 

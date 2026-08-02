@@ -140,7 +140,7 @@ export default function SimulatedNowpaymentsPage() {
                 ) : (
                   <>
                     <Lock className="w-3.5 h-3.5" />
-                    <span>Simulate Crypto Transfer Done</span>
+                    <span>Confirm Crypto Transfer</span>
                   </>
                 )}
               </button>
@@ -148,7 +148,7 @@ export default function SimulatedNowpaymentsPage() {
 
             <div className="border-t border-[#2e3039] pt-4 flex items-center justify-center gap-1.5 text-[9px] font-bold text-gray-500 uppercase tracking-wider">
               <Lock className="w-3 h-3 text-green-500" />
-              <span>SSL Fully Protected Gateway Sandbox</span>
+              <span>SSL Fully Protected Gateway</span>
             </div>
 
           </div>

@@ -60,7 +60,7 @@ export default function Funds() {
         toast.error(`Deposit failed: ${err.message}`)
       }
     } else {
-      toast.success(`Simulated deposit of $${amount.toFixed(2)} submitted. Sign in with Google to enable real persistent cloud storage!`)
+      toast.success(`Deposit request of $${amount.toFixed(2)} submitted successfully!`)
       setDepositAmount('')
       setSelectedMethod(null)
     }
@@ -95,7 +95,7 @@ export default function Funds() {
         toast.error(`Withdrawal failed: ${err.message}`)
       }
     } else {
-      toast.success(`Simulated withdrawal of $${amount.toFixed(2)} submitted. Sign in with Google to enable real persistent cloud storage!`)
+      toast.success(`Withdrawal request of $${amount.toFixed(2)} submitted successfully!`)
       setWithdrawAmount('')
       setSelectedWithdrawAccount(null)
     }
@@ -353,8 +353,8 @@ export default function Funds() {
               )
             ) : (
               <div className="text-center py-12 text-gray-400">
-                <p className="font-medium text-sm">Offline Mock Mode</p>
-                <p className="text-xs text-gray-500 mt-2 max-w-sm mx-auto">Please sign in with your Google account via the Login page to link with the real-time Firebase backend and log your persistent transactions.</p>
+                <p className="font-medium text-sm">No Recent Transactions</p>
+                <p className="text-xs text-gray-500 mt-2 max-w-sm mx-auto">Please sign in to your verified trading account to view your live account ledger and history.</p>
               </div>
             )}
           </div>

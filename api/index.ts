@@ -31,7 +31,7 @@ api.post("/webhooks/stripe", async (c) => {
       const stripeObj = new StripeModule.default(apiKey, { apiVersion: "2023-10-16" as any });
       event = stripeObj.webhooks.constructEvent(rawBody, signature, webhookSecret);
     } else {
-      // Direct parsing fallback if secret is not set (for sandbox/dev convenience)
+      // Direct parsing fallback if secret is not set (for dev convenience)
       event = JSON.parse(rawBody);
     }
   } catch (err: any) {

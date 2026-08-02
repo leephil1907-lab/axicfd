@@ -173,7 +173,7 @@ export default function MarketNews({ selectedSymbol, setSelectedSymbol, isAuthen
           </div>
           <div>
             <h3 className="text-xs font-black uppercase tracking-wider text-white font-space">Live Axi Intelligence Feed</h3>
-            <p className="text-[10px] text-gray-500 font-mono">Simulated algorithmic financial wire</p>
+            <p className="text-[10px] text-gray-500 font-mono">Algorithmic financial news wire</p>
           </div>
         </div>
 

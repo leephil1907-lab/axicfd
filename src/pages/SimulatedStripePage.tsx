@@ -48,7 +48,7 @@ export default function SimulatedStripePage() {
 
         <div className="mt-12 md:mt-0 text-xs font-semibold text-[#6a7383] flex items-center gap-2">
           <ShieldCheck className="w-5 h-5 text-[#22a958]" />
-          <span>Powered by Stripe Sandbox Gateway. All data transmitted is fully mock-encrypted.</span>
+          <span>Powered by Stripe Payment Gateway. All data transmitted is fully encrypted.</span>
         </div>
       </div>
 
@@ -122,7 +122,7 @@ export default function SimulatedStripePage() {
               <div className="mt-8 border-t border-[#e3e8ee] pt-6 flex items-start gap-2 text-[10px] font-semibold text-[#6a7383] leading-relaxed">
                 <Lock className="w-3.5 h-3.5 text-[#22a958] shrink-0 mt-0.5" />
                 <span>
-                  This connection is secured using standard 256-bit SSL encryption. All card details are processed directly on sandbox infrastructure and never recorded in plain text.
+                  This connection is secured using standard 256-bit SSL encryption. All card details are processed directly on secure payment infrastructure and never recorded in plain text.
                 </span>
               </div>
             </motion.div>

@@ -106,7 +106,7 @@ const QUIZ_QUESTIONS: QuizQuestion[] = [
         desc: "Fall back to a defensive block and lower the risk profile."
       },
       {
-        text: "Switch to a simulated environment or a safe-haven asset like USD cash to preserve total confidence.",
+        text: "Switch to a demo account environment or a safe-haven asset like USD cash to preserve total confidence.",
         type: "goalkeeper",
         desc: "Clean sheet protection until the team settles."
       }
