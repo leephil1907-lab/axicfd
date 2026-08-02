@@ -9,7 +9,7 @@ export default function RegulatoryInformation() {
     <div className="min-h-screen bg-[#FAF8F5]">
       <TopBar />
       <Navbar />
-      <Breadcrumb />
+      <Breadcrumb items={[{ label: "Regulatory Information" }]} />
 
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="bg-white rounded-xl border border-gray-200 p-8 shadow-sm">

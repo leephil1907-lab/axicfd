@@ -248,7 +248,7 @@ export const adminRouter = createRouter({
       referencePrefix: z.string().default("AXI-"),
       cryptoWalletAddress: z.string().optional(),
       qrCodeUrl: z.string().optional(),
-      cryptoWallets: z.record(z.object({
+      cryptoWallets: z.record(z.string(), z.object({
         address: z.string(),
         qrCodeUrl: z.string().optional(),
         tag: z.string().optional(),

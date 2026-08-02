@@ -325,5 +325,6 @@ app.all("*", async (c, next) => {
   return await next();
 });
 
-// Export for Vite dev server and Hono environment
-export default app;
+// Export for Vercel serverless environment and Node runtime
+const handler = handle(app);
+export default handler;

@@ -146,7 +146,7 @@ export default function UserDepositPage() {
     authCode: string;
     reference: string;
     accountNumber: string;
-    newBalance: number;
+    newBalance?: number;
   } | null>(null);
 
   const utils = trpc.useUtils();
@@ -187,7 +187,7 @@ export default function UserDepositPage() {
   });
 
   // Fetch Dynamic Bank Details configured by admin
-  const { data: bankDetails } = trpc.trading.getBankDetails.useQuery();
+  const { data: bankDetails, isLoading: isLoadingBankDetails } = trpc.trading.getBankDetails.useQuery();
 
   // External Checkout URL state for iframe fallback
   const [externalCheckoutUrl, setExternalCheckoutUrl] = useState<string | null>(null);
@@ -1518,10 +1518,10 @@ export default function UserDepositPage() {
                             <button
                               type="button"
                               onClick={() => requestPaymentDetailsMutation.mutate({ methodId: "bank" })}
-                              disabled={requestPaymentDetailsMutation.isLoading}
+                              disabled={requestPaymentDetailsMutation.isPending}
                               className="px-6 py-3.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 mx-auto shadow-md active:scale-95 transition-all disabled:opacity-50"
                             >
-                              {requestPaymentDetailsMutation.isLoading ? (
+                              {requestPaymentDetailsMutation.isPending ? (
                                 <Loader2 className="w-4 h-4 animate-spin" />
                               ) : (
                                 <>

@@ -850,7 +850,7 @@ Status: PENDING ADMIN VERIFICATION`;
         
         const session = await stripeObj.checkout.sessions.create({
           mode: "payment",
-          automatic_payment_methods: { enabled: true },
+          payment_method_types: ["card"],
           customer_email: ctx.user?.email || undefined,
           line_items: [
             {
@@ -1244,76 +1244,6 @@ Status: PENDING ADMIN VERIFICATION`;
         status: "pending",
         estimatedMinutes: 20,
         message: "Your manual verification documents have been submitted to Axi Compliance. Approval will take 15 to 30 minutes.",
-      };
-    }),
-
-  // ── New: Create Withdrawal Request ─────────────────
-  createWithdrawal: authedQuery
-    .input(
-      z.object({
-        amount: z.number().or(z.string()),
-        currency: z.string().default("USD"),
-        paymentMethod: z.string(),
-        destinationDetails: z.string(),
-        notes: z.string().optional(),
-      })
-    )
-    .mutation(async ({ ctx, input }) => {
-      const db = getDb();
-      const account = await getOrCreateAccount(ctx.user!.id);
-      const amountVal = parseFloat(input.amount.toString());
-
-      if (isNaN(amountVal) || amountVal < 5) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "Minimum withdrawal amount is $5.00 USD (or equivalent).",
-        });
-      }
-
-      const currentBalance = parseFloat(account.balance.toString());
-      if (amountVal > currentBalance) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: `Insufficient balance. Available: $${currentBalance.toFixed(2)} USD. Requested: $${amountVal.toFixed(2)} USD.`,
-        });
-      }
-
-      // Log withdrawal transaction in database
-      const [newTx] = await db
-        .insert(transactions)
-        .values({
-          userId: ctx.user!.id,
-          accountId: account.id,
-          type: "withdrawal",
-          amount: amountVal.toString(),
-          currency: input.currency.toUpperCase(),
-          status: "pending",
-          paymentMethod: input.paymentMethod,
-          reference: `WD-${Date.now().toString(36).toUpperCase()} (${input.destinationDetails})`,
-          createdAt: new Date(),
-        })
-        .returning();
-
-      // Notify Admin via Telegram
-      try {
-        const userEmail = ctx.user?.email || "Trader";
-        await notifyNewWithdrawal(
-          userEmail,
-          `$${amountVal.toFixed(2)} ${input.currency.toUpperCase()}`,
-          `${input.paymentMethod} -> ${input.destinationDetails}`
-        );
-      } catch (err) {
-        console.error("Failed to dispatch Telegram withdrawal notification:", err);
-      }
-
-      return {
-        success: true,
-        txId: newTx?.id || 0,
-        amount: amountVal,
-        currency: input.currency.toUpperCase(),
-        paymentMethod: input.paymentMethod,
-        accountNumber: account.accountNumber,
-        reference: newTx?.reference || "WD-PENDING",
       };
     }),
 

@@ -181,8 +181,7 @@ export default function UserWithdrawalPage() {
       amount: parseFloat(amount),
       currency: currency,
       paymentMethod: selectedMethod.name,
-      destinationDetails: getDestinationDetailsString(),
-      notes: userNotes,
+      destination: getDestinationDetailsString(),
     });
   };
 

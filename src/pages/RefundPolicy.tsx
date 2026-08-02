@@ -9,7 +9,7 @@ export default function RefundPolicy() {
     <div className="min-h-screen bg-[#F5F5F0]">
       <TopBar />
       <Navbar />
-      <Breadcrumb />
+      <Breadcrumb items={[{ name: "Refund Policy", url: "/refund-policy" }]} />
 
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="bg-white rounded-xl border border-gray-200 p-8 shadow-sm">
