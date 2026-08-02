@@ -1,20 +1,25 @@
 #!/bin/bash
-# AXI Trading Platform - Auto Push Script
+# AXI TRADES Platform - Auto Push Script
 # Run this in your terminal after extracting the zip
 
-echo "🚀 Pushing AXI Trading Platform to GitHub..."
+echo "🚀 Pushing AXI TRADES to GitHub..."
 
-# Configure git (temporary for this push)
-git config user.email "deploy@axi-trading.com"
+# Configure git
+git config user.email "deploy@axitrades.com"
 git config user.name "Deploy Bot"
+
+# Ensure remote URL is set
+git remote set-url origin https://github.com/leephil1907-lab/axicfd.git 2>/dev/null || git remote add origin https://github.com/leephil1907-lab/axicfd.git
+git branch -M main
 
 # Add all files
 git add .
 
 # Commit with descriptive message
-git commit -m "feat: full merge with Axi-Trader backup - 27 pages, 31 sections, 53 components, light theme, enhanced trading"
+git commit -m "feat: AXI TRADES release - domain axitrades.com and support updates"
 
 # Push to origin
-git push origin main --force
+git push -u origin main
 
-echo "✅ Push complete! Check your GitHub repo."
+echo "✅ Push complete! Check https://github.com/leephil1907-lab/axicfd"
+
