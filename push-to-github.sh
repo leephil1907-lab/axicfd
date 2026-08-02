@@ -8,8 +8,13 @@ echo "🚀 Pushing AXI TRADES to GitHub..."
 git config user.email "deploy@axitrades.com"
 git config user.name "Deploy Bot"
 
-# Ensure remote URL is set
-git remote set-url origin https://github.com/leephil1907-lab/axicfd.git 2>/dev/null || git remote add origin https://github.com/leephil1907-lab/axicfd.git
+TOKEN="${1:-$GITHUB_TOKEN}"
+
+if [ -n "$TOKEN" ]; then
+  git remote set-url origin "https://${TOKEN}@github.com/leephil1907-lab/axicfd.git"
+else
+  git remote set-url origin https://github.com/leephil1907-lab/axicfd.git 2>/dev/null || git remote add origin https://github.com/leephil1907-lab/axicfd.git
+fi
 git branch -M main
 
 # Add all files
