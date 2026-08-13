@@ -1,0 +1,10 @@
+{
+  "name": "AXITRADES",
+  "description": "AXITRADES global forex and CFD trading platform. Trade Forex, Shares, Cryptocurrencies, Commodities, and Indices with live market data, web trading terminal, leverage calculators, academy, and regulatory tools.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
